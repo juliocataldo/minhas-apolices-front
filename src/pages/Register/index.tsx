@@ -2,6 +2,7 @@ import React, { useState, FormEvent } from "react";
 import * as Yup from "yup";
 import * as S from "./styles";
 import { useHistory } from "react-router-dom";
+import { FaSpinner } from "react-icons/fa";
 import Input from "../../components/Input";
 import PageHeader from "../../components/PageHeader";
 import firebase from "../../components/Firebase";
@@ -20,6 +21,7 @@ function Register() {
   const [complemento, setComplemento] = useState("");
   const [estado, setEstado] = useState("");
   const [cidade, setCidade] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const history = useHistory();
 
@@ -59,6 +61,7 @@ function Register() {
     });
 
     if (isValid) {
+      setLoading(true);
       const db = firebase.firestore();
 
       firebase
@@ -89,11 +92,13 @@ function Register() {
               cidade,
             })
             .then((response) => {
-              alert("sucesso");
               history.push("/login");
             })
             .catch((e) => {
               alert("Erro ao enviar");
+            })
+            .finally(() => {
+              setLoading(false);
             });
         })
         .catch(() => {
@@ -138,6 +143,7 @@ function Register() {
             onChange={(e) => setSenha(e.target.value)}
             label="Senha"
             name="Senha"
+            type="password"
           />
           <Input
             value={dtNascimento}
@@ -205,7 +211,7 @@ function Register() {
         </S.ContainerInput>
 
         <S.ContainerButton>
-          <button>Cadatrar</button>
+          <button>{loading ? <FaSpinner size={25} /> : "Cadastrar"}</button>
         </S.ContainerButton>
       </form>
     </S.Container>

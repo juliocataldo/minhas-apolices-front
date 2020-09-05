@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import media from "styled-media-query";
 
 export const Container = styled.div`
@@ -39,6 +39,13 @@ export const ContainerInput = styled.div`
   `}
 `;
 
+const spinner = keyframes`
+to {
+ transform: rotate(360deg)
+}
+
+`;
+
 export const ContainerButton = styled.div`
   display: flex;
   align-items: center;
@@ -53,6 +60,10 @@ export const ContainerButton = styled.div`
     border-radius: 4px;
     margin-bottom: 32px;
     align-self: center;
+  }
+
+  svg {
+    animation: ${spinner} 2s linear infinite;
   }
 `;
 
