@@ -1,13 +1,12 @@
-import React from 'react';
+import React from "react";
 
+import { BrowserRouter } from "react-router-dom";
 
-import './assets/style/global.css';
-import Routes from './pages/routes';
+import "./assets/style/global.css";
+import Routes from "./pages/routes";
 
 function App() {
-  return (
-    <Routes/>
-  );
+  return <Routes />;
 }
 
 export default App;
