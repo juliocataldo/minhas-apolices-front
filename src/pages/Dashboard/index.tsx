@@ -4,15 +4,22 @@ import { useHistory } from "react-router-dom";
 
 function Dashboard() {
   useEffect(() => {
-    if (firebase.auth().currentUser) {
-      setUser(firebase.auth().currentUser);
-    } else {
-      history.push("/login");
-    }
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        history.push("/");
+      }
+    });
   }, []);
 
-  const teste = () => {
-    console.log(user);
+  const signOut = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        history.push("/");
+      });
   };
 
   const [user, setUser]: any = useState();
@@ -21,6 +28,7 @@ function Dashboard() {
   return (
     <div>
       <h1>{user?.email}</h1>
+      <button onClick={signOut}>Deslogar</button>
     </div>
   );
 }

@@ -37,6 +37,10 @@ function Login() {
     }
   };
 
+  const recoverPassword = () => {
+    firebase.auth().sendPasswordResetEmail(login);
+  };
+
   return (
     <S.Container>
       <PageHeader title="Bem vindo novamente, que bom que voltou! :)" />
@@ -55,6 +59,8 @@ function Login() {
             name="Senha"
           />
           <S.Button>Logar</S.Button>
+
+          <a onClick={recoverPassword}>Recuperar minha Senha</a>
         </S.ContainerInput>
       </form>
     </S.Container>
